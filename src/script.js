@@ -43,7 +43,7 @@ function createTodoElement(item) {
   inputEl.type = "text";
   inputEl.value = item.text;
   inputEl.setAttribute("disabled", "");
-
+  inputEl.placeholder = "할일을 입력하세요!";
   const actionsEl = document.createElement("div");
   actionsEl.classList.add("actions");
 
