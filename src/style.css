@@ -85,7 +85,7 @@ input[type="text"] {
   color: #afd9ff;
 }
 
-.complete {
+.complete input[type="text"] {
   text-decoration: line-through;
   color: #aaa;
 }
