@@ -1,6 +1,6 @@
 const list = document.getElementById("list");
 const createBtn = document.getElementById("create-btn");
-
+let currentDeletingItem = null;
 let todos = [];
 
 //create event function
@@ -30,6 +30,7 @@ function createTodoElement(item) {
   //create Element
   const itemEl = document.createElement("div");
   itemEl.classList.add("item");
+  itemEl.setAttribute("data-id", item.id);
 
   const checkboxEl = document.createElement("input");
   checkboxEl.type = "checkbox";
@@ -95,12 +96,8 @@ function createTodoElement(item) {
 
   //remove event function
   removeBtnEl.addEventListener("click", () => {
-    //data change
-    todos = todos.filter((t) => t.id !== item.id);
-    //element remove
-    itemEl.remove();
-
-    saveToLocalStorage();
+    currentDeletingItem = item;
+    showToast();
   });
 
   //
@@ -142,3 +139,43 @@ function displayTodos() {
 
 //display init page
 displayTodos();
+
+const deleteBtn = document.getElementById("delete-btn");
+const cancleBtn = document.getElementById("cancle-btn");
+const toastMessage = document.getElementById("toast-message");
+
+deleteBtn.addEventListener("click", () => {
+  confirmDelete();
+});
+
+cancleBtn.addEventListener("click", () => {
+  cancleDelete();
+});
+
+function showToast() {
+  toastMessage.style.opacity = "1";
+  toastMessage.style.visibility = "visible";
+}
+
+function hideToast() {
+  toastMessage.style.opacity = "0";
+  toastMessage.style.visibility = "hidden";
+}
+
+function cancleDelete() {
+  hideToast();
+}
+
+function confirmDelete() {
+  //data change
+  if (!currentDeletingItem) return;
+
+  todos = todos.filter((t) => t.id !== currentDeletingItem.id);
+  //element remove
+
+  document.querySelector(`div[data-id="${currentDeletingItem.id}"]`).remove();
+
+  saveToLocalStorage();
+  hideToast();
+  currentDeletingItem = null;
+}

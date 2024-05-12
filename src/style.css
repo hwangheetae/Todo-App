@@ -89,3 +89,34 @@ input[type="text"] {
   text-decoration: line-through;
   color: #aaa;
 }
+
+#toast-message {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 50px;
+  z-index: 1000;
+  font-weight: bold;
+  background-color: red;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.5s, visibility 0.5s;
+  opacity: 0;
+  visibility: hidden;
+}
+
+#toast-message-text {
+  padding-right: 10px;
+}
+
+#toast-message button {
+  padding: 8px 16px;
+  font-size: 16px;
+  margin: 5px;
+  background-color: #6fbaff;
+}
