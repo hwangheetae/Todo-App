@@ -1,0 +1,91 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif;
+  background: #afd9ff;
+  color: #333;
+}
+
+.app {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 36px;
+  color: #333;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #6fbaff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2f9bff;
+}
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 15px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.material-icons {
+  padding: 5px 5px;
+  margin: 5px 5px 5px 5px;
+  background-color: #afd9ff;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+input[type="text"] {
+  outline: none;
+  border: gray;
+  font-size: 16px;
+  width: 100%;
+  margin-right: 5px;
+}
+
+.actions {
+  display: flex;
+  cursor: pointer;
+}
+
+.material-icons :hover {
+  color: #afd9ff;
+}
+
+.complete {
+  text-decoration: line-through;
+  color: #aaa;
+}
