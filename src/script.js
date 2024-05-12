@@ -72,10 +72,18 @@ function createTodoElement(item) {
     item.text = inputEl.value;
   });
 
-  //input complete event function
+  //input complete event function =>blur
   inputEl.addEventListener("blur", () => {
     inputEl.setAttribute("disabled", "");
     saveToLocalStorage();
+  });
+
+  //input complete event function =>Enter keypress
+  inputEl.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      inputEl.setAttribute("disabled", "");
+      saveToLocalStorage();
+    }
   });
 
   //edit event function
