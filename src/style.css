@@ -48,6 +48,43 @@ button:hover {
   padding: 0;
 }
 
+.item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 15px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.material-icons {
+  padding: 5px 5px;
+  margin: 5px 5px 5px 5px;
+  background-color: #afd9ff;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+input[type="text"] {
+  outline: none;
+  border: gray;
+  font-size: 16px;
+  width: 100%;
+  margin-right: 5px;
+}
+
+.actions {
+  display: flex;
+  cursor: pointer;
+}
+
+.material-icons :hover {
+  color: #afd9ff;
+}
+
 .complete input[type="text"] {
   text-decoration: line-through;
   color: #aaa;
