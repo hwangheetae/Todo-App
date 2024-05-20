@@ -11,21 +11,14 @@
     />
   </head>
   <body>
-    <main>
-      <div class="app">
-        <div id="toast-message">
-          <div id="toast-message-text">정말 삭제하시겠습니까?</div>
-          <button id="delete-btn">예</button>
-          <button id="cancle-btn">취소</button>
-        </div>
-
-        <header>
-          <h1>Todo App</h1>
-          <button id="create-btn">새로운 todo 추가하기</button>
-        </header>
-        <div class="todo-list" id="list"></div>
-      </div>
-    </main>
-    <script src="script.js"></script>
+    <div id="app">
+      <header>
+        <h1>Todo App</h1>
+        <input type="text" id="new-todo" placeholder="할일을 입력하세요!" />
+        <button id="add-btn">새로운 todo 추가하기</button>
+      </header>
+      <ul id="todo-list"></ul>
+    </div>
+    <script src="app.js"></script>
   </body>
 </html>
