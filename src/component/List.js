@@ -26,6 +26,8 @@ function List({
       return data;
     });
     setTodos(newTodos);
+    localStorage.setItem("todoData", JSON.stringify(newTodos));
+
     setisEditing(false);
   };
 

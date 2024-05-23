@@ -4,7 +4,10 @@ import Button from "./component/Button"; // 경로 수정
 import { useState } from "react";
 
 function App() {
-  const [todos, setTodos] = useState([]);
+  const initialTodoData = localStorage.getItem("todoData")
+    ? JSON.parse(localStorage.getItem("todoData"))
+    : [];
+  const [todos, setTodos] = useState(initialTodoData);
   const [value, setValue] = useState("");
 
   const handleChange = (e) => {
@@ -15,32 +18,36 @@ function App() {
     e.preventDefault();
     if (value.trim() === "") return;
 
-    let newTodo = {
+    const newTodo = {
       id: Date.now(),
       title: value,
       complete: false,
     };
     setTodos((prev) => [...prev, newTodo]);
     setValue("");
+    localStorage.setItem("todoData", JSON.stringify([...todos, newTodo]));
   };
 
   const handleDelete = (id) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
+    localStorage.setItem("todoData", JSON.stringify(newTodos));
   };
 
   const handleClearAll = () => {
     setTodos([]);
+    localStorage.setItem("todoData", JSON.stringify([]));
   };
 
   const handleCompleteChange = (id) => {
-    let newTodo = todos.map((data) => {
+    const newTodos = todos.map((data) => {
       if (data.id === id) {
         return { ...data, complete: !data.complete };
       }
       return data;
     });
-    setTodos(newTodo);
+    setTodos(newTodos);
+    localStorage.setItem("todoData", JSON.stringify(newTodos));
   };
 
   return (
