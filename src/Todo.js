@@ -1,4 +1,3 @@
-import "./Todo.css";
 import Lists from "./component/Lists"; // 경로 수정
 import Button from "./component/Button"; // 경로 수정
 import { useState } from "react";
@@ -54,17 +53,25 @@ function Todo() {
   };
 
   return (
-    <div className="App">
-      <h1>Todo App</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="bg-white max-w-xl mx-auto my-10 p-5 rounded-lg shadow-lg">
+      <div className="m-0 text-[36px] text-[#333] text-center">Todo App</div>
+      <form
+        className="flex w-[100%] p-[10px] text-[16px] rounded-[5px] mx-[5px]"
+        onSubmit={handleSubmit}
+      >
         <input
           type="text"
+          className="w-full p-2 text-lg border border-gray-300 rounded-md mr-2"
           name="value"
           placeholder="할 일을 입력하세요."
           value={value}
           onChange={handleChange}
         />
-        <input type="submit" value="입력" />
+        <input
+          type="submit"
+          className="p-2 px-4 border-none rounded-md bg-[#6fbaff] text-white cursor-pointer transition-colors duration-300 ease-in-out hover:bg-[#2f9bff] mr-2"
+          value="입력"
+        />
       </form>
       <Lists
         todos={todos}

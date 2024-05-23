@@ -8,7 +8,8 @@ function Home() {
   };
   return (
     <>
-      <h1>Home Page</h1>
+      <div className="m-0 text-[36px] text-[#333] text-center">Home Page</div>
+
       <Button title="시작하기" onClick={handleClick} />
     </>
   );
