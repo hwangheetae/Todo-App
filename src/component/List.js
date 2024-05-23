@@ -31,33 +31,40 @@ function List({
     setisEditing(false);
   };
 
+  const spanStyle = {
+    textDecoration: complete ? "line-through" : "none",
+    color: complete ? "#808080" : "#000000",
+  };
+
   if (isEditing) {
     return (
       <>
-        <div>
+        <div className="item-list">
           <form onSubmit={handleEditSubmit}>
-            <input value={editedTitle} onChange={handleEditChange} />
+            <input
+              type="text"
+              value={editedTitle}
+              onChange={handleEditChange}
+            />
             <input type="submit" value="완료" />
+            <Button title={"취소"} onClick={() => setisEditing(false)} />
           </form>
-        </div>
-        <div>
-          <Button title={"취소"} onClick={() => setisEditing(false)} />
         </div>
       </>
     );
   } else {
     return (
-      <div>
+      <div className="item-list">
         <input
           type="checkbox"
           checked={complete}
           onChange={() => handleCompleteChange(id)}
         />
-        <span style={{ textDecoration: complete ? "line-through" : undefined }}>
-          {title}
-        </span>
-        <Button title={"수정"} onClick={() => setisEditing(true)} />
-        <Button title={"삭제"} onClick={() => handleDelete(id)} />
+        <span style={spanStyle}>{title}</span>
+        <div>
+          <Button title={"수정"} onClick={() => setisEditing(true)} />
+          <Button title={"삭제"} onClick={() => handleDelete(id)} />
+        </div>
       </div>
     );
   }
