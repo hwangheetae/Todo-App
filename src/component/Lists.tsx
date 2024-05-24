@@ -1,7 +1,23 @@
 import React from "react";
 import List from "./List";
 
-function Lists({ todos, handleDelete, handleCompleteChange, setTodos }) {
+interface Todo {
+  id: number;
+  title: string;
+  complete: boolean;
+}
+interface ListsProps {
+  todos: Todo[];
+  handleDelete: (id: number) => void;
+  handleCompleteChange: (id: number) => void;
+  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+}
+const Lists: React.FC<ListsProps> = ({
+  todos,
+  handleDelete,
+  handleCompleteChange,
+  setTodos,
+}) => {
   return (
     <div>
       {todos.map((todo) => (
@@ -18,6 +34,6 @@ function Lists({ todos, handleDelete, handleCompleteChange, setTodos }) {
       ))}
     </div>
   );
-}
+};
 
 export default Lists;

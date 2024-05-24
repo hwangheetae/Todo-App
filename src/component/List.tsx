@@ -1,7 +1,23 @@
 import React, { useState } from "react";
 import Button from "./Button";
 
-function List({
+interface Todo {
+  id: number;
+  title: string;
+  complete: boolean;
+}
+
+interface ListProps {
+  todos: Todo[];
+  id: number;
+  title: string;
+  complete: boolean;
+  handleDelete: (id: number) => void;
+  handleCompleteChange: (id: number) => void;
+  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+}
+
+const List: React.FC<ListProps> = ({
   todos,
   id,
   title,
@@ -9,15 +25,15 @@ function List({
   handleDelete,
   handleCompleteChange,
   setTodos,
-}) {
+}) => {
   const [isEditing, setisEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
 
-  const handleEditChange = (e) => {
+  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditedTitle(e.target.value);
   };
 
-  const handleEditSubmit = (e) => {
+  const handleEditSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newTodos = todos.map((data) => {
       if (data.id === id) {
@@ -33,27 +49,25 @@ function List({
 
   if (isEditing) {
     return (
-      <>
-        <div className="item-list">
-          <form
-            className="flex w-[100%] p-[10px] text-[16px] rounded-[5px] mx-[5px]"
-            onSubmit={handleEditSubmit}
-          >
-            <input
-              type="text"
-              className="w-full p-2 text-lg border border-gray-300 rounded-md mr-2"
-              value={editedTitle}
-              onChange={handleEditChange}
-            />
-            <input
-              type="submit"
-              className="p-2 px-4 border-none rounded-md bg-[#6fbaff] text-white cursor-pointer transition-colors duration-300 ease-in-out hover:bg-[#2f9bff] mr-2"
-              value="완료"
-            />
-            <Button title={"취소"} onClick={() => setisEditing(false)} />
-          </form>
-        </div>
-      </>
+      <div className="item-list">
+        <form
+          className="flex w-[100%] p-[10px] text-[16px] rounded-[5px] mx-[5px]"
+          onSubmit={handleEditSubmit}
+        >
+          <input
+            type="text"
+            className="w-full p-2 text-lg border border-gray-300 rounded-md mr-2"
+            value={editedTitle}
+            onChange={handleEditChange}
+          />
+          <input
+            type="submit"
+            className="p-2 px-4 border-none rounded-md bg-[#6fbaff] text-white cursor-pointer transition-colors duration-300 ease-in-out hover:bg-[#2f9bff] mr-2"
+            value="완료"
+          />
+          <Button title={"취소"} onClick={() => setisEditing(false)} />
+        </form>
+      </div>
     );
   } else {
     return (
@@ -78,6 +92,6 @@ function List({
       </div>
     );
   }
-}
+};
 
 export default List;

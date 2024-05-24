@@ -1,7 +1,7 @@
 import React from "react";
-import Button from "./Button.js";
+import Button from "./Button";
 import { useNavigate } from "react-router-dom";
-function Home() {
+const Home: React.FC = () => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/todo");
@@ -13,6 +13,6 @@ function Home() {
       <Button title="시작하기" onClick={handleClick} />
     </>
   );
-}
+};
 
 export default Home;

@@ -1,26 +1,34 @@
-import Lists from "./component/Lists"; // 경로 수정
-import Button from "./component/Button"; // 경로 수정
-import { useState } from "react";
+import React, { useState } from "react";
+import Lists from "./component/Lists";
+import Button from "./component/Button";
 import { useNavigate } from "react-router-dom";
-function Todo() {
+
+interface TodoProps {
+  id: number;
+  title: string;
+  complete: boolean;
+}
+
+const Todo: React.FC = () => {
   const navigate = useNavigate();
   const handleBackToHome = () => navigate("/");
 
-  const initialTodoData = localStorage.getItem("todoData")
-    ? JSON.parse(localStorage.getItem("todoData"))
+  const initialTodoData: TodoProps[] = localStorage.getItem("todoData")
+    ? JSON.parse(localStorage.getItem("todoData") as string)
     : [];
-  const [todos, setTodos] = useState(initialTodoData);
+
+  const [todos, setTodos] = useState<TodoProps[]>(initialTodoData);
   const [value, setValue] = useState("");
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (value.trim() === "") return;
 
-    const newTodo = {
+    const newTodo: TodoProps = {
       id: Date.now(),
       title: value,
       complete: false,
@@ -30,7 +38,7 @@ function Todo() {
     localStorage.setItem("todoData", JSON.stringify([...todos, newTodo]));
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: number) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
     localStorage.setItem("todoData", JSON.stringify(newTodos));
@@ -41,7 +49,7 @@ function Todo() {
     localStorage.setItem("todoData", JSON.stringify([]));
   };
 
-  const handleCompleteChange = (id) => {
+  const handleCompleteChange = (id: number) => {
     const newTodos = todos.map((data) => {
       if (data.id === id) {
         return { ...data, complete: !data.complete };
@@ -83,6 +91,6 @@ function Todo() {
       <Button title="시작페이지로.." onClick={handleBackToHome}></Button>
     </div>
   );
-}
+};
 
 export default Todo;

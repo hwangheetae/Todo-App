@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./component/Home";
 import Todo from "./Todo";
 import "./App.css";
-function App() {
+const App: React.FC = () => {
   return (
     <div className="bg-white max-w-xl mx-auto my-10 p-5 rounded-lg shadow-lg">
       <BrowserRouter>
@@ -14,6 +14,6 @@ function App() {
       </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;
