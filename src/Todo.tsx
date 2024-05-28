@@ -3,6 +3,7 @@ import Lists from "./component/Lists";
 import Button from "./component/Button";
 import { useNavigate } from "react-router-dom";
 import Form from "./component/Form";
+
 interface TodoProps {
   id: number;
   title: string;
@@ -10,14 +11,13 @@ interface TodoProps {
 }
 
 const Todo: React.FC = () => {
-  console.log("TODO 렌더링.....");
-
   const navigate = useNavigate();
   const handleBackToHome = useCallback(() => navigate("/"), [navigate]);
 
-  const initialTodoData: TodoProps[] = localStorage.getItem("todoData")
-    ? JSON.parse(localStorage.getItem("todoData") as string)
-    : [];
+  const initialTodoData: TodoProps[] = useMemo(() => {
+    const storedData = localStorage.getItem("todoData");
+    return storedData ? JSON.parse(storedData) : [];
+  }, []);
 
   const [todos, setTodos] = useState<TodoProps[]>(initialTodoData);
   const [value, setValue] = useState("");

@@ -6,7 +6,6 @@ const Home: React.FC = () => {
   const handleClick = () => {
     navigate("/todo");
   };
-  console.log("홈 렌더링.....");
 
   return (
     <>

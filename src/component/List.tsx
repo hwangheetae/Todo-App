@@ -27,8 +27,6 @@ const List: React.FC<ListProps> = ({
   handleCompleteChange,
   setTodos,
 }) => {
-  console.log("리스트아이템 렌더링.....");
-
   const [isEditing, setisEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
 
