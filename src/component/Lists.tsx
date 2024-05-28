@@ -10,13 +10,14 @@ interface ListsProps {
   todos: Todo[];
   handleDelete: (id: number) => void;
   handleCompleteChange: (id: number) => void;
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  handleEdit: (id: number, newTitle: string) => void;
 }
+
 const Lists: React.FC<ListsProps> = ({
   todos,
   handleDelete,
   handleCompleteChange,
-  setTodos,
+  handleEdit,
 }) => {
   return (
     <div>
@@ -28,8 +29,7 @@ const Lists: React.FC<ListsProps> = ({
           complete={todo.complete}
           handleCompleteChange={handleCompleteChange}
           handleDelete={handleDelete}
-          setTodos={setTodos}
-          todos={todos} // todos를 전달
+          handleEdit={handleEdit}
         />
       ))}
     </div>

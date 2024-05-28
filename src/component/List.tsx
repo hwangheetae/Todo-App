@@ -2,32 +2,24 @@ import React, { useState, useCallback } from "react";
 import Button from "./Button";
 import Form from "./Form";
 
-interface Todo {
-  id: number;
-  title: string;
-  complete: boolean;
-}
-
 interface ListProps {
-  todos: Todo[];
   id: number;
   title: string;
   complete: boolean;
   handleDelete: (id: number) => void;
   handleCompleteChange: (id: number) => void;
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  handleEdit: (id: number, newTitle: string) => void;
 }
 
 const List: React.FC<ListProps> = ({
-  todos,
   id,
   title,
   complete,
   handleDelete,
   handleCompleteChange,
-  setTodos,
+  handleEdit,
 }) => {
-  const [isEditing, setisEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
 
   const handleEditChange = useCallback(
@@ -38,57 +30,49 @@ const List: React.FC<ListProps> = ({
   );
 
   const handleEditSubmit = useCallback(
-    (e: React.ChangeEvent<HTMLFormElement>) => {
+    (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const newTodos = todos.map((data) => {
-        if (data.id === id) {
-          return { ...data, title: editedTitle };
-        }
-        return data;
-      });
-      setTodos(newTodos);
-      localStorage.setItem("todoData", JSON.stringify(newTodos));
-
-      setisEditing(false);
+      handleEdit(id, editedTitle);
+      setIsEditing(false);
     },
-    [editedTitle, id, setTodos, todos]
+    [id, editedTitle, handleEdit]
   );
 
-  if (isEditing) {
-    return (
-      <div className="item-list">
-        <Form
-          formEditChange={handleEditChange}
-          formChange={handleEditSubmit}
-          value={editedTitle}
-          setisEditing={setisEditing}
-          showCancelButton={true}
-        />
-      </div>
-    );
-  } else {
-    return (
-      <div className="flex items-center	justify-between p-[10px] my-4 bg-[#fff] rounded-[5px] shadow-md">
-        <input
-          type="checkbox"
-          className="mr-[10px]"
-          checked={complete}
-          onChange={() => handleCompleteChange(id)}
-        />
-        <span
-          className={`${
-            complete ? "line-through text-gray-400" : "text-black"
-          }text-left flex-1`}
-        >
-          {title}
-        </span>
-        <div>
-          <Button title={"수정"} onClick={() => setisEditing(true)} />
-          <Button title={"삭제"} onClick={() => handleDelete(id)} />
+  return (
+    <>
+      {isEditing ? (
+        <div className="item-list">
+          <Form
+            formEditChange={handleEditChange}
+            formChange={handleEditSubmit}
+            value={editedTitle}
+            showCancelButton={true}
+            setisEditing={setIsEditing}
+          />
         </div>
-      </div>
-    );
-  }
+      ) : (
+        <div className="flex items-center justify-between p-2 my-4 bg-white rounded-md shadow-md">
+          <input
+            type="checkbox"
+            className="mr-2"
+            checked={complete}
+            onChange={() => handleCompleteChange(id)}
+          />
+          <span
+            className={`flex-1 ${
+              complete ? "line-through text-gray-400" : "text-black"
+            } text-left`}
+          >
+            {title}
+          </span>
+          <div>
+            <Button title={"수정"} onClick={() => setIsEditing(true)} />
+            <Button title={"삭제"} onClick={() => handleDelete(id)} />
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default React.memo(List);
