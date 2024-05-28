@@ -18,6 +18,8 @@ const Lists: React.FC<ListsProps> = ({
   handleCompleteChange,
   setTodos,
 }) => {
+  console.log("리스트 전체 렌더링.....");
+
   return (
     <div>
       {todos.map((todo) => (
@@ -36,4 +38,4 @@ const Lists: React.FC<ListsProps> = ({
   );
 };
 
-export default Lists;
+export default React.memo(Lists);

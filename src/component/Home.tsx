@@ -6,6 +6,8 @@ const Home: React.FC = () => {
   const handleClick = () => {
     navigate("/todo");
   };
+  console.log("홈 렌더링.....");
+
   return (
     <>
       <div className="m-0 text-[36px] text-[#333] text-center">Home Page</div>

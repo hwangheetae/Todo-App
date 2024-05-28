@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import Button from "./Button";
+import Form from "./Form";
 
 interface Todo {
   id: number;
@@ -26,47 +27,45 @@ const List: React.FC<ListProps> = ({
   handleCompleteChange,
   setTodos,
 }) => {
+  console.log("리스트아이템 렌더링.....");
+
   const [isEditing, setisEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
 
-  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEditedTitle(e.target.value);
-  };
+  const handleEditChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setEditedTitle(e.target.value);
+    },
+    []
+  );
 
-  const handleEditSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const newTodos = todos.map((data) => {
-      if (data.id === id) {
-        return { ...data, title: editedTitle };
-      }
-      return data;
-    });
-    setTodos(newTodos);
-    localStorage.setItem("todoData", JSON.stringify(newTodos));
+  const handleEditSubmit = useCallback(
+    (e: React.ChangeEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const newTodos = todos.map((data) => {
+        if (data.id === id) {
+          return { ...data, title: editedTitle };
+        }
+        return data;
+      });
+      setTodos(newTodos);
+      localStorage.setItem("todoData", JSON.stringify(newTodos));
 
-    setisEditing(false);
-  };
+      setisEditing(false);
+    },
+    [editedTitle, id, setTodos, todos]
+  );
 
   if (isEditing) {
     return (
       <div className="item-list">
-        <form
-          className="flex w-[100%] p-[10px] text-[16px] rounded-[5px] mx-[5px]"
-          onSubmit={handleEditSubmit}
-        >
-          <input
-            type="text"
-            className="w-full p-2 text-lg border border-gray-300 rounded-md mr-2"
-            value={editedTitle}
-            onChange={handleEditChange}
-          />
-          <input
-            type="submit"
-            className="p-2 px-4 border-none rounded-md bg-[#6fbaff] text-white cursor-pointer transition-colors duration-300 ease-in-out hover:bg-[#2f9bff] mr-2"
-            value="완료"
-          />
-          <Button title={"취소"} onClick={() => setisEditing(false)} />
-        </form>
+        <Form
+          formEditChange={handleEditChange}
+          formChange={handleEditSubmit}
+          value={editedTitle}
+          setisEditing={setisEditing}
+          showCancelButton={true}
+        />
       </div>
     );
   } else {
@@ -94,4 +93,4 @@ const List: React.FC<ListProps> = ({
   }
 };
 
-export default List;
+export default React.memo(List);
