@@ -53,6 +53,8 @@ const List: React.FC<ListProps> = ({
       ) : (
         <div className="flex items-center justify-between p-2 my-4 bg-white rounded-md shadow-md">
           <input
+            id={`${id}-checkbox`}
+            name="checkbox"
             type="checkbox"
             className="mr-2"
             checked={complete}

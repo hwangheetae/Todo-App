@@ -17,6 +17,8 @@ const Form: React.FC<FormProps> = React.memo(
       >
         <input
           type="text"
+          id="todo-input"
+          name="todo"
           className="w-full p-2 text-lg border border-gray-300 rounded-md mr-2"
           value={value}
           onChange={formEditChange}
